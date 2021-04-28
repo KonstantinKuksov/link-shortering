@@ -1,4 +1,5 @@
 {
   "port": 5000,
+  "jwtSecret": "my training mern app",
   "mongoUri": "mongodb+srv://Konstantin:qwerty123@cluster0.opndv.mongodb.net/app?retryWrites=true&w=majority"
 }
