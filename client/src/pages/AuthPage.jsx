@@ -1,6 +1,38 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { useHttp } from './../hooks/http.hook';
+import { useMessage } from './../hooks/message.hook';
 
 export const AuthPage = () => {
+  const message = useMessage();
+  const { loading, request, error, clearError } = useHttp();
+  const [form, setForm] = useState({
+    email: '',
+    password: '',
+  });
+
+  useEffect(() => {
+    message(error);
+    clearError();
+  }, [error, message, clearError]);
+
+  const changeHandler = (event) => {
+    setForm({ ...form, [event.target.name]: event.target.value });
+  };
+
+  const registrationHandler = async () => {
+    try {
+      const data = await request('/api/auth/registration', 'POST', { ...form });
+      message(data.message);
+    } catch (e) {}
+  };
+
+  const loginHandler = async () => {
+    try {
+      const data = await request('/api/auth/login', 'POST', { ...form });
+      message(data.message);
+    } catch (e) {}
+  };
+
   return (
     <div className="row">
       <div className="col s6 offset-s3">
@@ -15,6 +47,8 @@ export const AuthPage = () => {
                   id="email"
                   type="text"
                   name="email"
+                  className="yellow-input"
+                  onChange={changeHandler}
                 />
                 <label htmlFor="email">Email</label>
               </div>
@@ -25,17 +59,27 @@ export const AuthPage = () => {
                   id="password"
                   type="password"
                   name="password"
+                  className="yellow-input"
+                  onChange={changeHandler}
                 />
                 <label htmlFor="password">First Name</label>
               </div>
             </div>
           </div>
           <div className="card-action">
-            <button className="btn yellow darken-4 mr10 bold-text">
+            <button
+              className="btn yellow darken-4 mr10 bold-text"
+              onClick={loginHandler}
+              disabled={loading}
+            >
               Sign In
             </button>
 
-            <button className="btn grey lighten-1 black-text bold-text">
+            <button
+              className="btn grey lighten-1 black-text bold-text"
+              onClick={registrationHandler}
+              disabled={loading}
+            >
               Sign Up
             </button>
           </div>

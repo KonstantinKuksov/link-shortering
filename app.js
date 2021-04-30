@@ -5,7 +5,8 @@ const router = require('./routes/auth.routes');
 
 const app = express();
 
-app.use('api/auth', router);
+app.use(express.json({ extended: true }));
+app.use('/api/auth', router);
 
 const PORT = config.get('port') || 5000;
 
