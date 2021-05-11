@@ -1,6 +1,0 @@
-{
-  "port": 80,
-  "jwtSecret": "my training mern app",
-  "mongoUri": "mongodb+srv://Konstantin:qwerty123@cluster0.opndv.mongodb.net/app?retryWrites=true&w=majority",
-  "baseUrl": "https://links-shortening-kk.herokuapp.com"
-}
