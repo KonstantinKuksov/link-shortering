@@ -4,7 +4,7 @@ const router = Router();
 
 router.get('/:code', async (req, res) => {
   try {
-    const link = await Link.findeOne({ code: req.params.code });
+    const link = await Link.findOne({ code: req.params.code });
     console.log(link.to);
 
     if (link) {
